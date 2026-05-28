@@ -5,7 +5,7 @@ from mathutils import Vector
 
 bl_info = {
     "name": "Lithtech DAT Map Format (.dat)",
-    "author": "leos",
+    "author": "Original work by leos, updated by Guain-Daughauis",
     "description": "This plugins allows you to import Lithtech Map files.",
     "blender": (4, 2, 2),
     "version": (0, 0, 3),
