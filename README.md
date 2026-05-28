@@ -1,3 +1,8 @@
+# New Stuff
+
+The plugin was expanded to work with more lithtech map files, based on and inspired by haekb's work, check their stuff https://github.com/haekb. The plugin was solely tested with KISS Psycho Circus: The Nightmare Child, so it might not be that useful to other lithtech map files.
+
+
 # Blender Lithtech DAT Importer
 
 ⚠ Status Experimental ⚠
