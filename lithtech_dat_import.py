@@ -8,6 +8,12 @@ from bpy.props import StringProperty, BoolProperty, EnumProperty
 from bpy.types import Operator, Collection
 from bpy.app.handlers import persistent
 from .kaitai_lithtech_dat_struct import LithtechDat
+from .dat_parser import DatFormatError, UnsupportedDatVersionError, parse_dat_file
+from .lithtech_dat_v56 import LithtechDatV56, create_v56_blender_meshes
+from .lithtech_dat_v57 import LithtechDatV57, create_v57_blender_meshes
+from .lithtech_dat_v66 import LithtechDatV66, create_v66_blender_meshes
+from .lithtech_dat_v70 import LithtechDatV70, create_v70_blender_meshes
+from .lithtech_dat_v127 import LithtechDatV127, create_v127_blender_meshes
 from mathutils import Vector
 from .utils import vec3_to_xzy, int32_to_rgba, decompress_lm_data
 
@@ -497,8 +503,38 @@ class ImportLithtechDat(Operator, ImportHelper):
     @persistent
     def import_data(self):
         print("running read_some_data...")
-        lt_dat = LithtechDat.from_file(self.filepath)
+        try:
+            lt_dat = parse_dat_file(self.filepath)
+        except (DatFormatError, UnsupportedDatVersionError) as e:
+            self.report({"ERROR"}, str(e))
+            return {"CANCELLED"}
+
         name = path.basename(path.splitext(self.filepath)[0])
+        if isinstance(lt_dat, LithtechDatV56):
+            map = bpy.data.collections.new(name)
+            create_v56_blender_meshes(bpy.data, map, lt_dat)
+            self.C.collection.children.link(map)
+            return {"FINISHED"}
+        if isinstance(lt_dat, LithtechDatV57):
+            map = bpy.data.collections.new(name)
+            create_v57_blender_meshes(bpy.data, map, lt_dat)
+            self.C.collection.children.link(map)
+            return {"FINISHED"}
+        if isinstance(lt_dat, LithtechDatV127):
+            map = bpy.data.collections.new(name)
+            create_v127_blender_meshes(bpy.data, map, lt_dat)
+            self.C.collection.children.link(map)
+            return {"FINISHED"}
+        if isinstance(lt_dat, LithtechDatV66):
+            map = bpy.data.collections.new(name)
+            create_v66_blender_meshes(bpy.data, map, lt_dat)
+            self.C.collection.children.link(map)
+            return {"FINISHED"}
+        if isinstance(lt_dat, LithtechDatV70):
+            map = bpy.data.collections.new(name)
+            create_v70_blender_meshes(bpy.data, map, lt_dat)
+            self.C.collection.children.link(map)
+            return {"FINISHED"}
 
         self.createWorldInfo(name, lt_dat.world)
         map = bpy.data.collections.new(name)
