@@ -25,7 +25,7 @@ or
 1. Clone this repository into the Blender Add-on folder. When cloning, don't forget to clone recursive to include the required submodules.
     ```bat
     cd "~\AppData\Roaming\Blender Foundation\Blender\3.4\scripts\addons"
-    git clone --recurse-submodules https://github.com/leoschur/blender-lithtech-dat-import
+    git clone --recurse-submodules https://github.com/Guain-Daughauis/blender-lithtech-dat-import.git
     ```
 2. Start Blender navigate to: `Edit -> Preferences -> Add-ons`
 3. Search for `Lithtech DAT Map Format (.dat)` and enable the Plugin with the checkbox
