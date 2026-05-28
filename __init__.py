@@ -8,7 +8,7 @@ bl_info = {
     "author": "Original work by leos, updated by Guain-Daughauis",
     "description": "This plugins allows you to import Lithtech Map files.",
     "blender": (4, 2, 2),
-    "version": (0, 0, 3),
+    "version": (0, 0, 4),
     "location": "File > Import > Lithtech DAT",
     "warning": "",
     "category": "Import-Export"
